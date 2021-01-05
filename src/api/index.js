@@ -9,10 +9,12 @@ export const fetchData = query => {
 };
 
 
-export const Login = query => {
+export const UserLoginApi = query => {
     return request({
         url: 'http://127.0.0.1:8360/admin/auth/login',
         method: 'post',
         data: query
     });
 };
+
+export const token = '';

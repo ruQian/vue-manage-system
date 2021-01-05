@@ -14,7 +14,7 @@
                         type="password"
                         placeholder="password"
                         v-model="param.password"
-                        @keyup.enter.native="submitForm()"
+                        @keyup.enter.native="UserLogin()"
                     >
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
@@ -30,9 +30,12 @@
 
 <script>
     import {
-        Login
+        UserLoginApi
     } from '../../api/index';
 
+    import {
+        token
+    } from '../../api/index';
     export default {
         data: function() {
             return {
@@ -77,9 +80,11 @@
                     this.$message.error('请输入密码...');
                     return false;
                 }
-                Login(this.param).then(res => {
+                UserLoginApi(this.param).then(res => {
                     console.log(res);
                     if (res.errno == 0) {
+                        token = res.data.token;
+                        console.log(token);
                         this.$router.push('/');
                     }
                     if (res.errno == 400) {
