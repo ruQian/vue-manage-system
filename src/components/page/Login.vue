@@ -14,13 +14,13 @@
                         type="password"
                         placeholder="password"
                         v-model="param.password"
-                        @keyup.enter.native="UserLogin()"
+                        @keyup.enter.native="submitForm()"
                     >
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
-                    <el-button type="primary" @click="UserLogin()">登录</el-button>
+                    <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
                 <!--p class="login-tips">Tips : 用户名和密码随便填。</p!-->
             </el-form>
@@ -31,10 +31,6 @@
 <script>
     import {
         UserLoginApi
-    } from '../../api/index';
-
-    import {
-        token
     } from '../../api/index';
     export default {
         data: function() {
@@ -61,9 +57,16 @@
             submitForm() {
                 this.$refs.login.validate(valid => {
                     if (valid) {
-                        this.$message.success('登录成功');
-                        localStorage.setItem('ms_username', this.param.username);
-                        this.$router.push('/');
+                        var res = this.$options.methods.UserLogin.bind(this)();
+                        /*
+                        console.log("---");
+                        console.log(res);
+                        if(res.PromiseResult)
+                        {
+                            this.$message.success('登录成功');
+                            localStorage.setItem('ms_username', this.param.username);
+                            //this.$router.push('/');
+                        }*/
                     } else {
                         this.$message.error('请输入账号和密码');
                         console.log('error submit!!');
@@ -72,20 +75,13 @@
                 });
             },
             UserLogin() {
-                if (this.param.username == '') {
-                    this.$message.error('请输入用户名...');
-                    return false;
-                }
-                if (this.param.password == '') {
-                    this.$message.error('请输入密码...');
-                    return false;
-                }
                 UserLoginApi(this.param).then(res => {
                     console.log(res);
                     if (res.errno == 0) {
-                        token = res.data.token;
-                        console.log(token);
+                        window.token = res.data.token;
+                        console.log(window.token);
                         this.$router.push('/');
+                        return true;
                     }
                     if (res.errno == 400) {
                         this.$message.error('密码不正确...');
@@ -95,9 +91,7 @@
                         this.$message.error('用户名不存在...');
                         return false;
                     }
-
-
-
+                    return false;
                 });
             }
         },
