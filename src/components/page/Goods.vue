@@ -67,7 +67,6 @@
 </template>
 
 <script>
-    var mysql = require('mysql')
     import {
         fetchData
     } from '../../api/index';
@@ -84,28 +83,7 @@
             };
         },
         created() {
-            //this.getData();
-            var connection = mysql.createConnection({
-                host: '8.131.255.126',
-                user: 'root',
-                password: 'ruBO8823#',
-                database: 'nideshop'
-            });
-            console.log(connection);
-            // 连接
-
-
-            connection.connect(function(err) {
-                if (err) {
-                    console.log('[query] - :' + err);
-                    return;
-                }
-                console.log('[connection connect]  succeed!');
-            });
-
-
-
-
+            this.getData();
         },
         methods: {
             // 获取 easy-mock 的模拟数据
