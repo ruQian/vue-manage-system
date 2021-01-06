@@ -78,8 +78,7 @@
                 UserLoginApi(this.param).then(res => {
                     console.log(res);
                     if (res.errno == 0) {
-                        window.token = res.data.token;
-                        console.log(window.token);
+                        localStorage.setItem('ms_usertoken', res.data.token);
                         this.$message.success('登录成功');
                         localStorage.setItem('ms_username', this.param.username);
                         this.$router.push('/');
