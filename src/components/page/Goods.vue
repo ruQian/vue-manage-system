@@ -27,6 +27,7 @@
                 border
                 class="table"
                 ref="multipleTable"
+                height="750"
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
             >
@@ -41,6 +42,25 @@
                 <el-table-column prop="goods_brief" label="商品简述"></el-table-column>
                 <el-table-column prop="goods_desc" label="商品描述"></el-table-column>
                 <el-table-column prop="is_on_sale" label="是否在售"></el-table-column>
+                <el-table-column prop="add_time" label="添加时间"></el-table-column>
+                <el-table-column prop="sort_order" label="顺序号"></el-table-column>
+                <el-table-column prop="is_delete" label="是否删除"></el-table-column>
+                <el-table-column prop="attribute_category" label="属性分类"></el-table-column>
+                <el-table-column prop="counter_price" label="还价"></el-table-column>
+                <el-table-column prop="is_new" label="是否是新品"></el-table-column>
+                <el-table-column prop="goods_unit" label="附加价"></el-table-column>
+                <el-table-column prop="primary_pic_url" label="简要图"></el-table-column>
+                <el-table-column prop="list_pic_url" label="list_pic_url"></el-table-column>
+                <el-table-column prop="retail_price" label="零售价格"></el-table-column>
+                <el-table-column prop="sell_volume" label="销售数量"></el-table-column>
+                <el-table-column prop="primary_product_id" label="主要产品ID"></el-table-column>
+                <el-table-column prop="unit_price" label="单价"></el-table-column>
+                <el-table-column prop="promotion_desc" label="促销描述"></el-table-column>
+                <el-table-column prop="promotion_tag" label="促销标签"></el-table-column>
+                <el-table-column prop="app_exclusive_price" label="APP专用价格"></el-table-column>
+                <el-table-column prop="is_app_exclusive" label="是否是APP专用的"></el-table-column>
+                <el-table-column prop="is_limited" label="是否限购"></el-table-column>
+                <el-table-column prop="is_hot" label="是否热卖"></el-table-column>
 
             </el-table>
             <div class="pagination">
@@ -70,6 +90,9 @@
     import {
         fetchData
     } from '../../api/index';
+    import {
+        GetGoodsApi
+    } from '../../api/index';
     export default {
         name: 'basetable',
         data() {
@@ -88,11 +111,18 @@
         methods: {
             // 获取 easy-mock 的模拟数据
             getData() {
-                fetchData(this.query).then(res => {
-                    console.log(res);
-                    this.tableData = res.list;
-                    this.pageTotal = res.pageTotal || 50;
-                });
+                console.log('getData');
+                const role = localStorage.getItem('ms_usertoken');
+                console.log(role);
+                if (role) {
+                    var headerData = new Object();
+                    headerData["x-nideshop-token"] = role.toString();
+                    GetGoodsApi(headerData).then(res => {
+                        console.log(res);
+                        this.tableData = res.data.data;
+                        //this.pageTotal = res.pageTotal || 50;
+                    });
+                }
             },
             // 触发搜索按钮
             handleSearch() {

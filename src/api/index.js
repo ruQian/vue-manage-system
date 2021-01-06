@@ -10,11 +10,18 @@ export const fetchData = query => {
 };
 
 
-export const UserLoginApi = query => {
+export const UserLoginApi = body => {
     return request({
         url: 'http://127.0.0.1:8360/admin/auth/login',
         method: 'post',
-        data: query
+        data: body
     });
 };
 
+export const GetGoodsApi = headerData => {
+    return request({
+        url: 'http://127.0.0.1:8360/admin/goods/index',
+        method: 'get',
+        headers: headerData
+    });
+};
