@@ -31,7 +31,16 @@
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange"
             >
-                <el-table-column type="selection" width="55" align="center"></el-table-column>
+                <!--el-table-column type="selection" width="55" align="center"></el-table-column!-->
+                <el-table-column label="操作" width="70" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                            type="text"
+                            icon="el-icon-edit"
+                            @click="handleEdit(scope.$index, scope.row)"
+                        >编辑</el-button>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="id" label="商品ID"" width="60" align="center"></el-table-column>
                 <el-table-column prop="category_id" label="商品分类ID"></el-table-column>
                 <el-table-column prop="goods_sn" label="SN"></el-table-column>
@@ -49,8 +58,24 @@
                 <el-table-column prop="counter_price" label="还价"></el-table-column>
                 <el-table-column prop="is_new" label="是否是新品"></el-table-column>
                 <el-table-column prop="goods_unit" label="附加价"></el-table-column>
-                <el-table-column prop="primary_pic_url" label="简要图"></el-table-column>
-                <el-table-column prop="list_pic_url" label="list_pic_url"></el-table-column>
+                <el-table-column label="简要图(查看大图)" align="center">
+                    <template slot-scope="scope">
+                        <el-image
+                            class="table-td-thumb"
+                            :src="scope.row.primary_pic_url"
+                            :preview-src-list="[scope.row.primary_pic_url]"
+                        ></el-image>
+                </template>
+                </el-table-column>
+                <el-table-column label="list_pic_url(查看大图)" align="center">
+                    <template slot-scope="scope">
+                        <el-image
+                            class="table-td-thumb"
+                            :src="scope.row.list_pic_url"
+                            :preview-src-list="[scope.row.list_pic_url]"
+                        ></el-image>
+                </template>
+                </el-table-column>
                 <el-table-column prop="retail_price" label="零售价格"></el-table-column>
                 <el-table-column prop="sell_volume" label="销售数量"></el-table-column>
                 <el-table-column prop="primary_product_id" label="主要产品ID"></el-table-column>
@@ -63,9 +88,9 @@
                 <el-table-column prop="is_hot" label="是否热卖"></el-table-column>
 
             </el-table>
-            <div class="pagination">
+                <div class="pagination">
                 <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex" :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
-            </div>
+                </div>
         </div>
 
 <!-- 编辑弹出框 -->
