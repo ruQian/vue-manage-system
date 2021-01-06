@@ -120,7 +120,7 @@
                     title: '测试列表'
                 },{
                     icon: 'el-icon-lx-redpacket_fill',
-                    index: '/goodscategory',
+                    index: '/topcategory',
                     title: '测试分类'
                 }
                 ]

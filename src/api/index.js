@@ -34,3 +34,18 @@ export const GetTopCategoryApi = headerData => {
         headers: headerData
     });
 };
+//获取二级分类
+export const GetSecCategoryApi = params => {
+    var headerData = new Object;
+    var paramsData = new Object;
+    //params
+    paramsData["parentID"] = params["parentID"];
+    //header
+    headerData["x-nideshop-token"] = params["x-nideshop-token"];
+    return request({
+        url: 'http://127.0.0.1:8360/admin/category/secCategory',
+        method: 'get',
+        params: paramsData,
+        headers: headerData
+    });
+};

@@ -118,10 +118,16 @@ export default new Router({
                     meta: { title: '测试列表' }
                 },
                 {
-                    path: '/goodscategory',
+                    path: '/topcategory',
                     component: () =>
-                        import ( /* webpackChunkName: "donate" */ '../components/page/GoodsCategory.vue'),
+                        import ( /* webpackChunkName: "donate" */ '../components/page/TopCategory.vue'),
                     meta: { title: '测试分类' }
+                },
+                {
+                    path: '/seccategory',
+                    component: () =>
+                        import ( /* webpackChunkName: "donate" */ '../components/page/SecCategory.vue'),
+                    meta: { title: '二级类别' }
                 }
             ]
         },

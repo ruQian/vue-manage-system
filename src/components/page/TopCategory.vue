@@ -24,7 +24,7 @@
                             type="text"
                             icon="el-icon-lx-forward"
                             class="black"
-                            @click="handleDelete(scope.$index, scope.row)"
+                            @click="GoToSecCategoryHandler(scope.row.id, scope.row.name)"
                         >子级类别</el-button>
                     </template>
                 </el-table-column>
@@ -138,6 +138,9 @@
         created() {
             this.getData();
         },
+        destoryed(){
+            console.log('销毁');
+        },
         methods: {
             //获取分类信息
             
@@ -166,6 +169,15 @@
                 this.$set(this.query, 'pageIndex', 1);
                 this.getData();
             },
+
+            //跳转二级分类
+            GoToSecCategoryHandler(id, name){
+                console.log(id);
+                console.log(name);
+                //跳转到二级分类
+                this.$router.push({path:"/seccategory",query:{id:id, name:name}});
+            },
+
             // 删除操作
             handleDelete(index, row) {
                 // 二次确认删除
