@@ -1,14 +1,14 @@
 <template>
     <div>
-        <!--div class="crumbs">
+        <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-lx-cascades"></i> 基础表格
+                    <i class="el-icon-lx-cascades"></i> {{pageLabel}}
                 </el-breadcrumb-item>
             </el-breadcrumb>
-        </div!-->
+        </div>
         <div class="container">
-            <div class="handle-box">
+            <!--div class="handle-box">
                 <el-select v-model="GoodsQuery.topCategoryValue" placeholder="一级分类" class="handle-select mr10" @change="TopCategory">
                     <el-option
                     v-for="(item,index) in topCategoryData"
@@ -19,7 +19,7 @@
                 </el-select>
                 <el-select v-model="GoodsQuery.secCategoryValue" placeholder="二级分类" class="handle-select mr10" @change="SecCategory">
                 </el-select>
-            </div>
+            </div!-->
             <el-table
                 :data="tableData"
                 border
@@ -110,15 +110,12 @@
 
 <script>
     import {
-        fetchData
-    } from '../../api/index';
-    import {
-        GetGoodsApi
+        GetGoodsByIDApi
     } from '../../api/index';
     //all
 
     export default {
-        name: 'basetable',
+        //name: 'basetable',
         data() {
             return {
                 GoodsQuery:{
@@ -132,10 +129,18 @@
                 tableData: [],
                 pageTotal: 0,
                 topCategoryData:[],
-                secCategoryData:[]
+                secCategoryData:[],
+
+                pageLabel:'',
+                categoryId:''
             };
         },
         created() {
+            this.pageLabel = this.$route.query.name;
+            this.categoryId = this.$route.query.id;
+
+
+
             this.getData();
         },
         methods: {
@@ -145,9 +150,10 @@
                 const role = localStorage.getItem('ms_usertoken');
                 console.log(role);
                 if (role) {
-                    var headerData = new Object();
-                    headerData["x-nideshop-token"] = role.toString();
-                    GetGoodsApi(headerData).then(res => {
+                    var paramsData = new Object();
+                    paramsData["x-nideshop-token"] = role.toString();
+                    paramsData["categoryId"] = this.categoryId;
+                    GetGoodsByIDApi(paramsData).then(res => {
                         console.log(res);
                         this.tableData = res.data.data;
                         //this.pageTotal = res.pageTotal || 50;

@@ -26,6 +26,21 @@ export const GetGoodsApi = headerData => {
     });
 };
 
+export const GetGoodsByIDApi = params => {
+    var headerData = new Object;
+    var paramsData = new Object;
+    //params
+    paramsData["categoryId"] = params["categoryId"];
+    //header
+    headerData["x-nideshop-token"] = params["x-nideshop-token"];
+    return request({
+        url: 'http://127.0.0.1:8360/admin/goods/getGoodsById',
+        method: 'get',
+        params: paramsData,
+        headers: headerData,
+    });
+};
+
 //获取一级分类
 export const GetTopCategoryApi = headerData => {
     return request({

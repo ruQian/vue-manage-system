@@ -24,8 +24,8 @@
                             type="text"
                             icon="el-icon-lx-forward"
                             class="black"
-                            @click="GoToSecCategoryHandler(scope.row.id)"
-                        >子级类别</el-button>
+                            @click="GoToGoodsHandler(scope.row.id, scope.row.name)"
+                        >商品</el-button>
                     </template>
                 </el-table-column>
                 <el-table-column label="修改" width="70" align="center">
@@ -162,9 +162,11 @@
                 this.getData();
             },
 
-            //跳转二级分类
-            GoToSecCategoryHandler(e){
-                console.log(e);
+            //跳转商品列表
+            GoToGoodsHandler(id, name){
+                console.log(id);
+                console.log(name);
+                this.$router.push({path:"/goods",query:{id:id, name:this.pageLabel + '-' +name}});
             },
 
             // 删除操作
