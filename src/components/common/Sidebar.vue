@@ -118,7 +118,12 @@
                     icon: 'el-icon-lx-redpacket_fill',
                     index: '/goods',
                     title: '测试列表'
-                }]
+                },{
+                    icon: 'el-icon-lx-redpacket_fill',
+                    index: '/goodscategory',
+                    title: '测试分类'
+                }
+                ]
             };
         },
         computed: {

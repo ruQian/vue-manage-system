@@ -25,3 +25,12 @@ export const GetGoodsApi = headerData => {
         headers: headerData
     });
 };
+
+//获取一级分类
+export const GetTopCategoryApi = headerData => {
+    return request({
+        url: 'http://127.0.0.1:8360/admin/category/topCategory',
+        method: 'get',
+        headers: headerData
+    });
+};

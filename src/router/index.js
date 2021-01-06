@@ -116,6 +116,12 @@ export default new Router({
                     component: () =>
                         import ( /* webpackChunkName: "donate" */ '../components/page/Goods.vue'),
                     meta: { title: '测试列表' }
+                },
+                {
+                    path: '/goodscategory',
+                    component: () =>
+                        import ( /* webpackChunkName: "donate" */ '../components/page/GoodsCategory.vue'),
+                    meta: { title: '测试分类' }
                 }
             ]
         },
