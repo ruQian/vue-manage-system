@@ -12,7 +12,7 @@ export const fetchData = query => {
 
 export const UserLoginApi = body => {
     return request({
-        url: 'http://127.0.0.1:8360/admin/auth/login',
+        url: 'https://www.ylhzzy.top:8080/admin/auth/login',
         method: 'post',
         data: body
     });
@@ -20,7 +20,7 @@ export const UserLoginApi = body => {
 
 export const GetGoodsApi = headerData => {
     return request({
-        url: 'http://127.0.0.1:8360/admin/goods/index',
+        url: 'https://www.ylhzzy.top:8080/admin/goods/index',
         method: 'get',
         headers: headerData
     });
@@ -34,7 +34,7 @@ export const GetGoodsByIDApi = params => {
     //header
     headerData["x-nideshop-token"] = params["x-nideshop-token"];
     return request({
-        url: 'http://127.0.0.1:8360/admin/goods/getGoodsById',
+        url: 'https://www.ylhzzy.top:8080/admin/goods/getGoodsById',
         method: 'get',
         params: paramsData,
         headers: headerData,
@@ -44,7 +44,7 @@ export const GetGoodsByIDApi = params => {
 //获取一级分类
 export const GetTopCategoryApi = headerData => {
     return request({
-        url: 'http://127.0.0.1:8360/admin/category/topCategory',
+        url: 'https://www.ylhzzy.top:8080/admin/category/topCategory',
         method: 'get',
         headers: headerData
     });
@@ -58,7 +58,7 @@ export const GetSecCategoryApi = params => {
     //header
     headerData["x-nideshop-token"] = params["x-nideshop-token"];
     return request({
-        url: 'http://127.0.0.1:8360/admin/category/secCategory',
+        url: 'https://www.ylhzzy.top:8080/admin/category/secCategory',
         method: 'get',
         params: paramsData,
         headers: headerData
