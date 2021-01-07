@@ -128,6 +128,12 @@ export default new Router({
                     component: () =>
                         import ( /* webpackChunkName: "donate" */ '../components/page/SecCategory.vue'),
                     meta: { title: '二级类别' }
+                },
+                {
+                    path: '/gooddetail',
+                    component: () =>
+                        import ( /* webpackChunkName: "donate" */ '../components/page/GoodDetail.vue'),
+                    meta: { title: '二级类别' }
                 }
             ]
         },

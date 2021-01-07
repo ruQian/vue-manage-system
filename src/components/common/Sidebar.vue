@@ -118,6 +118,10 @@
                     icon: 'el-icon-lx-redpacket_fill',
                     index: '/topcategory',
                     title: '测试分类'
+                },{
+                    icon: 'el-icon-lx-redpacket_fill',
+                    index: '/gooddetail',
+                    title: '商品详情'
                 }
                 ]
             };
