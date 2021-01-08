@@ -1,5 +1,5 @@
 import request from '../utils/request';
-
+const ApiRootUrl = 'https://www.ylhzzy.top:8825/';
 
 export const fetchData = query => {
     return request({
@@ -12,7 +12,7 @@ export const fetchData = query => {
 
 export const UserLoginApi = body => {
     return request({
-        url: 'https://www.ylhzzy.top:8825/admin/auth/login',
+        url: ApiRootUrl+'admin/auth/login',
         method: 'post',
         data: body
     });
@@ -20,7 +20,7 @@ export const UserLoginApi = body => {
 
 export const GetGoodsApi = headerData => {
     return request({
-        url: 'https://www.ylhzzy.top:8825/admin/goods/index',
+        url: ApiRootUrl+'admin/goods/index',
         method: 'get',
         headers: headerData
     });
@@ -34,7 +34,7 @@ export const GetGoodsByIDApi = params => {
     //header
     headerData["x-nideshop-token"] = params["x-nideshop-token"];
     return request({
-        url: 'https://www.ylhzzy.top:8825/admin/goods/getGoodsById',
+        url: ApiRootUrl+'admin/goods/getGoodsById',
         method: 'get',
         params: paramsData,
         headers: headerData,
@@ -44,7 +44,7 @@ export const GetGoodsByIDApi = params => {
 //获取一级分类
 export const GetTopCategoryApi = headerData => {
     return request({
-        url: 'https://www.ylhzzy.top:8825/admin/category/topCategory',
+        url: ApiRootUrl+'admin/category/topCategory',
         method: 'get',
         headers: headerData
     });
@@ -58,7 +58,7 @@ export const GetSecCategoryApi = params => {
     //header
     headerData["x-nideshop-token"] = params["x-nideshop-token"];
     return request({
-        url: 'https://www.ylhzzy.top:8825/admin/category/secCategory',
+        url: ApiRootUrl+'admin/category/secCategory',
         method: 'get',
         params: paramsData,
         headers: headerData
