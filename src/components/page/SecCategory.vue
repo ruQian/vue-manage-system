@@ -166,7 +166,7 @@
             GoToGoodsHandler(id, name){
                 console.log(id);
                 console.log(name);
-                this.$router.push({path:"/goods",query:{id:id, name:this.pageLabel + '-' +name}});
+                this.$router.push({path:"/goods",query:{id:id, name:this.pageLabel + ' / ' +name}});
             },
 
             // 删除操作
