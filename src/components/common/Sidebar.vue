@@ -51,7 +51,7 @@
                     icon: 'el-icon-lx-home',
                     index: 'dashboard',
                     title: '系统首页'
-                }, {
+                },/* {
                     icon: 'el-icon-lx-cascades',
                     index: 'table',
                     title: '基础表格'
@@ -114,10 +114,10 @@
                         index: '404',
                         title: '404页面'
                     }]
-                },{
+                },*/{
                     icon: 'el-icon-lx-redpacket_fill',
                     index: '/topcategory',
-                    title: '测试分类'
+                    title: '商品管理'
                 },{
                     icon: 'el-icon-lx-redpacket_fill',
                     index: '/gooddetail',

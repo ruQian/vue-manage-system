@@ -52,7 +52,7 @@
                         <el-input v-model="form.name"></el-input>
                     </el-form-item>
                     <el-form-item label="是否是新品">
-                        <el-input v-model="form.name"></el-input>
+                        <el-switch v-model="form.delivery"></el-switch>
                     </el-form-item>
                     <el-form-item label="单位">
                         <el-input v-model="form.name"></el-input>
@@ -85,13 +85,13 @@
                         <el-input v-model="form.name"></el-input>
                     </el-form-item>
                     <el-form-item label="是否是APP专用">
-                        <el-input v-model="form.name"></el-input>
+                        <el-switch v-model="form.delivery"></el-switch>
                     </el-form-item>
                     <el-form-item label="是否限购">
-                        <el-input v-model="form.name"></el-input>
+                        <el-switch v-model="form.delivery"></el-switch>
                     </el-form-item>
                     <el-form-item label="是否热卖">
-                        <el-input v-model="form.name"></el-input>
+                        <el-switch v-model="form.delivery"></el-switch>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit">保存</el-button>
