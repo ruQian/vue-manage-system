@@ -64,3 +64,23 @@ export const GetSecCategoryApi = params => {
         headers: headerData
     });
 };
+//修改商品信息
+export const SortGoodApi = params => {
+    var headerData = new Object;
+    //header
+    headerData["x-nideshop-token"] = params["x-nideshop-token"];
+    return request({
+        url: ApiRootUrl+'admin/goods/store',
+        method: 'post',
+        headers: headerData,
+        data: params["data"]
+    });
+};
+
+
+
+
+
+
+
+
