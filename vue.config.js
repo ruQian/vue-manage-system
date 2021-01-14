@@ -5,14 +5,14 @@ module.exports = {
      devServer: {
          port: 8824,     // 端口号
 		 disableHostCheck: true,
-    //     proxy: {
-    //         '/api':{
-    //             target:'http://jsonplaceholder.typicode.com',
-    //             changeOrigin:true,
-    //             pathRewrite:{
-    //                 '/api':''
-    //             }
-    //         }
-    //     }
+         /*proxy: {
+             '/api':{
+                 target:'https://www.ylhzzy.top:8826/',
+                 changeOrigin:true,
+                 pathRewrite:{
+                     '^/api':''
+                 }
+             }
+         }*/
     }
 }

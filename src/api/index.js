@@ -1,6 +1,9 @@
 import request from '../utils/request';
 const ApiRootUrl = 'https://www.ylhzzy.top:8825/';
 
+//文件服务器
+const FileApiRootUrl = 'https://www.ylhzzy.top:8826/';
+
 export const fetchData = query => {
     return request({
         url: './table.json',
@@ -76,7 +79,18 @@ export const SortGoodApi = params => {
         data: params["data"]
     });
 };
-
+//上传文件接口
+export const UploadImageApi = params => {
+    var headerData = new Object;
+    //header 
+    headerData["Content-Type"] = "application/octet-stream";
+    return request({
+        url: FileApiRootUrl+'imgs/' +params["name"],
+        method: 'post',
+        headers: headerData,
+        data: params["body"]
+    });
+};
 
 
 

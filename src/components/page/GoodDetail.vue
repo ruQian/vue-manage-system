@@ -20,7 +20,7 @@
                     <el-form-item label="商品SN" :label-width="formLabelWidth" style="width: 45%;">
                         <el-input v-model="goodData.goods_sn"></el-input>
                     </el-form-item!-->
-                    <el-form-item label="商品名称"">
+                    <el-form-item label="商品名称">
                         <el-input v-model="goodData.name"></el-input>
                     </el-form-item>
                     <!--el-form-item label="品牌标识">
@@ -63,17 +63,35 @@
                     <el-form-item label="简要图">
                         <!--el-input v-model="goodData.primary_pic_url"></el-input!-->
                         
-                    <div class="container">
-                        <el-upload
-                            class="upload-demo"
-                            drag
-                            action="https://www.ylhzzy.top:8826/img/"
-                            multiple>
+                    <!--div class="container"!-->
+                        <!--el-upload
+                        class="upload-demo"
+                        ref="upload"
+                        action="string"
+                        accept="image/jpeg,image/png,image/jpg"
+                        list-type="picture-card"
+                        :before-upload="onBeforeUploadImage"
+                        :http-request="UploadImage"
+                        :on-change="fileChange"
+                        >
                             <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                            <div class="el-upload__text">点击上传</em></div>
                             <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-                        </el-upload>
-                    </div>
+                        </el-upload!-->
+                    <!--/div!-->
+                    <el-upload
+                    class="upload-demo"
+                    ref="upload"
+                    drag
+                    action="string"
+                    multiple
+                    :before-upload="onBeforeUploadImage"
+                    :http-request="UploadImage"
+                    :on-change="fileChange">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
                     </el-form-item>
                     <el-form-item label="list_pic_url">
                         <el-input v-model="goodData.list_pic_url"></el-input>
@@ -122,6 +140,9 @@
     import {
         SortGoodApi
     } from '../../api/index';
+    import {
+        UploadImageApi
+    } from '../../api/index';
     export default {
     data() {
         return {
@@ -130,7 +151,8 @@
             categoryId:'',
             form: {
 
-            }
+            },
+            fileList: [],
             };
         },
         created() {
@@ -160,7 +182,40 @@
                 }
 
 
-        }
+        },
+        
+        onBeforeUploadImage(file) {
+                const isIMAGE = file.type === 'image/png'
+                const isLt1M = file.size / 1024 / 1024 < 1
+                if (!isIMAGE) {
+                    this.$message.error('只能上传png格式文件')
+                }
+                if (!isLt1M) {
+                    this.$message.error('上传文件大小不能超过 1MB!')
+                }
+                return isIMAGE && isLt1M
+                },
+        UploadImage(param){
+                var paramsData = new Object();
+                console.log(param.file.name);
+                console.log(param.file.data);
+                paramsData['name'] = param.file.name;
+                paramsData['body'] = param.file.data;
+                UploadImageApi(paramsData).then(response => {
+                    console.log('上传图片成功')
+                    param.onSuccess()  // 上传成功的图片会显示绿色的对勾
+                    // 但是我们上传成功了图片， fileList 里面的值却没有改变，还好有on-change指令可以使用
+                }).catch(response => {
+                    console.log('图片上传失败')
+                    param.onError()
+                })
+                },
+        fileChange(file){
+                this.$refs.upload.clearFiles() //清除文件对象
+                this.logo = file.raw // 取出上传文件的对象，在其它地方也可以使用
+                this.fileList = [{name: file.name, url: file.url}] // 重新手动赋值filstList， 免得自定义上传成功了, 而fileList并没有动态改变， 这样每次都是上传一个对象
+                },
+
     }
 };
 </script>
