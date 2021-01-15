@@ -86,9 +86,9 @@ export const UploadImageApi = params => {
     //headerData["Content-Type"] = "application/octet-stream";
     return request({
         url: FileApiRootUrl +'imgs/'+ params["name"],
-        method: 'put',
+        method: 'get',
         //headers: headerData,
-        data: params["body"]
+        //data: params["body"]
     });
 };
 

@@ -63,22 +63,31 @@
                     <el-form-item label="简要图">
                         <!--el-input v-model="goodData.primary_pic_url"></el-input!-->
                         
-                    <el-upload
+                    <!--div class="container"!-->
+                        <!--el-upload
                         class="upload-demo"
                         ref="upload"
-                        action=""
-                        accept="image/png"
+                        action="string"
+                        accept="image/jpeg,image/png,image/jpg"
                         list-type="picture-card"
                         :before-upload="onBeforeUploadImage"
-                        limit = "parseInt('1')"
                         :http-request="UploadImage"
                         :on-change="fileChange"
                         >
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">点击上传</em></div>
+                            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                        </el-upload!-->
+                    <!--/div!-->
+                    <div class="container" id="imageId" v-bind:style="{width:30,height: 30}">
                         <el-image
                             class="table-td-thumb"
-                            :src="goodData.primary_pic_url"
+                            :src="goodData.list_pic_url"
                         ></el-image>
-                    </el-upload>
+                    </div>
+                    <div class="crop-demo-btn">选择图片
+                        <input class="crop-input" type="file" name="image" accept="image/*" @change="OnUploadImage"/>
+                    </div>
                     <!--el-upload
                     class="upload-demo"
                     ref="upload"
@@ -94,21 +103,7 @@
                     </el-upload!-->
                     </el-form-item>
                     <el-form-item label="list_pic_url">
-                        <el-upload
-                        class="upload-demo"
-                        ref="upload"
-                        action="string"
-                        accept="image/png"
-                        list-type="picture-card"
-                        :before-upload="onBeforeUploadImage"
-                        :http-request="UploadImage"
-                        :on-change="fileChange"
-                        >
-                        <el-image
-                            class="table-td-thumb"
-                            :src="goodData.list_pic_url"
-                        ></el-image>
-                        </el-upload>
+                        <el-input v-model="goodData.list_pic_url"></el-input>
                     </el-form-item>
                     <el-form-item label="零售价格">
                         <el-input v-model="goodData.retail_price"></el-input>
@@ -197,44 +192,34 @@
 
 
         },
-        
-        onBeforeUploadImage(file) {
-                const isIMAGE = file.type === 'image/png'
-                const isLt1M = file.size / 1024 / 1024 < 1
-                if (!isIMAGE) {
-                    this.$message.error('只能上传png格式文件')
-                }
-                if (!isLt1M) {
-                    this.$message.error('上传文件大小不能超过 1MB!')
-                }
-                return isIMAGE && isLt1M
-                },
-        UploadImage(param){
-                var paramsData = new FormData();
-                console.log(param.file.name);
-                console.log(param);
+        OnUploadImage(e)
+        {
+            console.log('1');
+            const file = e.target.files[0];
+            //if (!file.type.includes('image/')) {
+            //    return;
+            //}
+            console.log('2');
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                var paramsData = new Object();
+                paramsData["name"] = file.name;
+                paramsData["body"] = '123';
                 
-                
-                paramsData["name"] = param.file.name;
-                paramsData["body"] = param.file;
+                UploadImageApi(paramsData).then(res => {
+                        console.log('res - ' + res);
+                })    
 
-                //paramsData['name'] = param.file.name;
-                //paramsData['body'] = param.file;
-                UploadImageApi(paramsData).then(response => {
-                    console.log('上传图片成功')
-                    //param.onSuccess()  // 上传成功的图片会显示绿色的对勾
-                    // 但是我们上传成功了图片， fileList 里面的值却没有改变，还好有on-change指令可以使用
-                }).catch(response => {
-                    console.log('图片上传失败')
-                    //param.onError()
-                })
-                },
-        fileChange(file){
-                this.$refs.upload.clearFiles() //清除文件对象
-                this.logo = file.raw // 取出上传文件的对象，在其它地方也可以使用
-                this.fileList = [{name: file.name, url: file.url}] // 重新手动赋值filstList， 免得自定义上传成功了, 而fileList并没有动态改变， 这样每次都是上传一个对象
-                },
+
+                //this.dialogVisible = true;
+                //this.imgSrc = event.target.result;
+                // /this.$refs.cropper && this.$refs.cropper.replace(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
 
     }
 };
 </script>
+
+
