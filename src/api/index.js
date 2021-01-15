@@ -83,11 +83,11 @@ export const SortGoodApi = params => {
 export const UploadImageApi = params => {
     var headerData = new Object;
     //header 
-    headerData["Content-Type"] = "application/octet-stream";
+    //headerData["Content-Type"] = "application/octet-stream";
     return request({
-        url: FileApiRootUrl+'imgs/' +params["name"],
-        method: 'post',
-        headers: headerData,
+        url: FileApiRootUrl +'imgs/'+ params["name"],
+        method: 'put',
+        //headers: headerData,
         data: params["body"]
     });
 };

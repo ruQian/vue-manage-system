@@ -63,23 +63,23 @@
                     <el-form-item label="简要图">
                         <!--el-input v-model="goodData.primary_pic_url"></el-input!-->
                         
-                    <!--div class="container"!-->
-                        <!--el-upload
+                    <el-upload
                         class="upload-demo"
                         ref="upload"
-                        action="string"
-                        accept="image/jpeg,image/png,image/jpg"
+                        action=""
+                        accept="image/png"
                         list-type="picture-card"
                         :before-upload="onBeforeUploadImage"
+                        limit = "parseInt('1')"
                         :http-request="UploadImage"
                         :on-change="fileChange"
                         >
-                            <i class="el-icon-upload"></i>
-                            <div class="el-upload__text">点击上传</em></div>
-                            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-                        </el-upload!-->
-                    <!--/div!-->
-                    <el-upload
+                        <el-image
+                            class="table-td-thumb"
+                            :src="goodData.primary_pic_url"
+                        ></el-image>
+                    </el-upload>
+                    <!--el-upload
                     class="upload-demo"
                     ref="upload"
                     drag
@@ -91,10 +91,24 @@
                         <i class="el-icon-upload"></i>
                         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                         <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
+                    </el-upload!-->
                     </el-form-item>
                     <el-form-item label="list_pic_url">
-                        <el-input v-model="goodData.list_pic_url"></el-input>
+                        <el-upload
+                        class="upload-demo"
+                        ref="upload"
+                        action="string"
+                        accept="image/png"
+                        list-type="picture-card"
+                        :before-upload="onBeforeUploadImage"
+                        :http-request="UploadImage"
+                        :on-change="fileChange"
+                        >
+                        <el-image
+                            class="table-td-thumb"
+                            :src="goodData.list_pic_url"
+                        ></el-image>
+                        </el-upload>
                     </el-form-item>
                     <el-form-item label="零售价格">
                         <el-input v-model="goodData.retail_price"></el-input>
@@ -196,18 +210,23 @@
                 return isIMAGE && isLt1M
                 },
         UploadImage(param){
-                var paramsData = new Object();
+                var paramsData = new FormData();
                 console.log(param.file.name);
-                console.log(param.file.data);
-                paramsData['name'] = param.file.name;
-                paramsData['body'] = param.file.data;
+                console.log(param);
+                
+                
+                paramsData["name"] = param.file.name;
+                paramsData["body"] = param.file;
+
+                //paramsData['name'] = param.file.name;
+                //paramsData['body'] = param.file;
                 UploadImageApi(paramsData).then(response => {
                     console.log('上传图片成功')
-                    param.onSuccess()  // 上传成功的图片会显示绿色的对勾
+                    //param.onSuccess()  // 上传成功的图片会显示绿色的对勾
                     // 但是我们上传成功了图片， fileList 里面的值却没有改变，还好有on-change指令可以使用
                 }).catch(response => {
                     console.log('图片上传失败')
-                    param.onError()
+                    //param.onError()
                 })
                 },
         fileChange(file){
